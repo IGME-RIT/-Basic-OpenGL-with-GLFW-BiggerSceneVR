@@ -449,7 +449,10 @@ int main(int argc, char **argv)
         glViewport(startX, 0, sizeX, viewportDimensions.y);
 
         // camera
-        view = controller.GetTransform().GetInverseMatrix();
+        temp = controller.GetTransform();
+        temp.RotateY(rotY);
+        view = temp.GetInverseMatrix();
+        view = glm::translate(view, glm::vec3(moveX, 0, 0));
         viewProjection = projection * view;
         material1->SetMatrix(cameraViewVS, viewProjection);
 
